@@ -118,7 +118,7 @@ const Navbar = () => {
                     <ChevronDown size={16} />
                   </button>
                   {activeSubmenu === item.title && (
-                    <div className="absolute left-0 w-screen bg-white shadow-lg py-8 mt-0 -ml-4">
+                    <div className="absolute rounded-xl left-0 w-[550px] bg-white shadow-lg py-8 mt-0 -ml-4">
                       <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 gap-8">
                         {item.submenu.map((section) => (
                           <div key={section.category}>
