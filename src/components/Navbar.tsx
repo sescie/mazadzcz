@@ -101,7 +101,7 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0 font-bold text-2xl text-blue-900">
-              Mazadzicz
+              Mazadziczzz
             </Link>
 
             {/* Desktop Navigation */}
