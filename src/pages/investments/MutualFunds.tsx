@@ -1,30 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Filter, Download } from 'lucide-react';
 
 const MutualFunds = () => {
-  const funds = [
-    {
-      name: 'Mazadzicz Global Growth Fund',
-      type: 'Equity',
-      risk: 'High',
-      performance: '+12.5%',
-      rating: 5
-    },
-    {
-      name: 'Mazadzicz Income Fund',
-      type: 'Fixed Income',
-      risk: 'Medium',
-      performance: '+5.8%',
-      rating: 4
-    },
-    {
-      name: 'Mazadzicz Balanced Portfolio',
-      type: 'Multi-Asset',
-      risk: 'Medium',
-      performance: '+8.2%',
-      rating: 5
-    }
-  ];
+  const [funds, setFunds] = useState<any[]>([]); // State to store fetched data
+
+  useEffect(() => {
+    // Fetch funds data from the API
+    const fetchFunds = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/investments/');
+        const data = await response.json();
+        setFunds(data); // Update the state with fetched data
+      } catch (err) {
+        console.error('Error fetching funds:', err);
+      }
+    };
+
+    fetchFunds();
+  }, []); // Empty dependency array ensures this runs once when component mounts
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -55,12 +48,6 @@ const MutualFunds = () => {
               <option>Fixed Income</option>
               <option>Multi-Asset</option>
             </select>
-            <select className="border rounded px-4 py-2">
-              <option>Risk Level</option>
-              <option>Low</option>
-              <option>Medium</option>
-              <option>High</option>
-            </select>
             <button className="ml-auto bg-blue-900 text-white px-4 py-2 rounded">
               Apply Filters
             </button>
@@ -76,18 +63,16 @@ const MutualFunds = () => {
                   <h3 className="text-xl font-semibold text-blue-900 mb-2">{fund.name}</h3>
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
                     <div>
-                      <span className="font-medium">Type:</span> {fund.type}
+                      <span className="font-medium">Amount:</span> {fund.amount}
                     </div>
                     <div>
-                      <span className="font-medium">Risk Level:</span> {fund.risk}
+                      <span className="font-medium">Current Price:</span> {fund.current_price}
                     </div>
                     <div>
-                      <span className="font-medium">YTD Performance:</span>{' '}
-                      <span className="text-green-600">{fund.performance}</span>
+                      <span className="font-medium">ISIN:</span> {fund.isin}
                     </div>
                     <div>
-                      <span className="font-medium">Rating:</span>{' '}
-                      {'★'.repeat(fund.rating)}{'☆'.repeat(5-fund.rating)}
+                      <span className="font-medium">Risk Level:</span> Hardcoded High
                     </div>
                   </div>
                 </div>

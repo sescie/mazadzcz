@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Search, Globe, ChevronDown } from 'lucide-react';
+import { Menu, X, Search, Globe, ChevronDown, UserCircle } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [isAuthDropdownOpen, setIsAuthDropdownOpen] = useState(false);
 
   const navItems = [
     {
@@ -89,8 +90,8 @@ const Navbar = () => {
               <button className="flex items-center space-x-1 text-gray-600">
                 <Globe size={16} />
                 <span>Location: Global</span>
-              </button>
-            </div>
+              </button>             
+            </div>           
           </div>
         </div>
       </div>
@@ -152,6 +153,35 @@ const Navbar = () => {
               <button className="bg-blue-900 text-white px-6 py-2 rounded hover:bg-blue-800">
                 Contact Us
               </button>
+              <div className="relative">
+                <button
+                  className="flex items-center space-x-1 text-gray-600 hover:text-blue-600"
+                  onClick={() => setIsAuthDropdownOpen(!isAuthDropdownOpen)}
+                >
+                  <UserCircle size={24} />
+                  
+                </button>
+                {isAuthDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div className="py-1">
+                      <Link
+                        to="auth/login"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setIsAuthDropdownOpen(false)}
+                      >
+                        Sign In
+                      </Link>
+                      <Link
+                        to="auth/register"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setIsAuthDropdownOpen(false)}
+                      >
+                        Create Account
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Mobile menu button */}
@@ -213,6 +243,7 @@ const Navbar = () => {
                   Contact Us
                 </button>
               </div>
+              
             </div>
           </div>
         )}
