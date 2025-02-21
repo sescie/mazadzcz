@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Load API URL from .env (fallback to localhost if not defined)
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://147.93.121.22:4000';
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
