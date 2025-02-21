@@ -11,21 +11,22 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Load API URL from .env (fallback to localhost if not defined)
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.email || !formData.password) {
       alert("Please fill in both email and password.");
       return;
     }
-  
-    // Mock API login request (replace with actual API call)
+
     try {
       console.log("Submitting login form with data:", formData);
-  
-      // Example: replace with actual login logic using an API
-      const response = await fetch("http://147.93.121.22:4000/api/auth/login/", {
+
+      const response = await fetch(`${API_URL}/api/auth/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,17 +36,15 @@ const Login = () => {
           password: formData.password,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         console.log("Login successful:", data);
         localStorage.setItem('userData', JSON.stringify(data.user));
 
         navigate('/dashboard');
-        
       } else {
-        // Handle errors (e.g., incorrect credentials)
         console.error("Login failed:", data.message);
         alert("Login failed: " + data.message);
       }
@@ -54,9 +53,8 @@ const Login = () => {
       alert("An error occurred. Please try again.");
     }
   };
-  
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
