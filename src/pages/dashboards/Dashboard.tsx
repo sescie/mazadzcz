@@ -26,9 +26,9 @@ const Dashboard = () => {
       try {
         // Fetch all required data
         const [usersResponse, investmentsResponse, userInvestmentsResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/users/'),
-          axios.get('http://localhost:5000/api/investments'),
-          axios.get('http://localhost:5000/api/investments_users/')
+          axios.get('http://147.93.121.22:4000/api/users/'),
+          axios.get('http://147.93.121.22:4000/api/investments'),
+          axios.get('http://147.93.121.22:4000/api/user-investments/')
         ]);
 
         // Calculate stats
