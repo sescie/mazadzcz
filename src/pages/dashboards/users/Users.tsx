@@ -22,7 +22,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/users/');
+        const response = await axios.get('hhttp://147.93.121.22:4000/api/users/');
         const formattedUsers = response.data.map(user => ({
           ...user,
           status: user.status || 'active', // Default status
@@ -42,7 +42,7 @@ const Users = () => {
 
   const handleAddUser = async (user: Omit<User, 'id' | 'joinDate'>) => {
     try {
-      const response = await axios.post('/api/users/register', {
+      const response = await axios.post('hhttp://147.93.121.22:4000/api/auth/register', {
         name: user.name,
         email: user.email,
         password: 'defaultPassword', // You should handle password properly
