@@ -40,9 +40,10 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login successful:", data);
+        console.log("Login successful:", data);        
+        localStorage.setItem('token', data.token);       
         localStorage.setItem('userData', JSON.stringify(data.user));
-
+      
         navigate('/dashboard');
       } else {
         console.error("Login failed:", data.message);

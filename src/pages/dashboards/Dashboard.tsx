@@ -24,11 +24,22 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error("No token found");
+          setLoading(false);
+          return;
+        }
+    
+        // Define the headers
+        const headers = {
+          Authorization: `Bearer ${token}`, // Include the token in the request
+        };
         // Fetch all required data
         const [usersResponse, investmentsResponse, userInvestmentsResponse] = await Promise.all([
-          axios.get('http://147.93.121.22:4000/api/users/'),
-          axios.get('http://147.93.121.22:4000/api/investments'),
-          axios.get('http://147.93.121.22:4000/api/user-investments/')
+          axios.get('http://147.93.121.22:4000/api/users/', { headers }),
+          axios.get('http://147.93.121.22:4000/api/investments', { headers }),
+          axios.get('http://147.93.121.22:4000/api/user-investments/', { headers })
         ]);
 
         // Calculate stats

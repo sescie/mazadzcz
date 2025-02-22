@@ -22,7 +22,19 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://147.93.121.22:4000/api/users/');
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error("No token found");
+          setLoading(false);
+          return;
+        }
+    
+        // Define the headers
+        const headers = {
+          Authorization: `Bearer ${token}`, // Include the token in the request
+        };
+
+        const response = await axios.get('http://147.93.121.22:4000/api/users/', { headers });
         const formattedUsers = response.data.map(user => ({
           ...user,
           status: user.status || 'active', // Default status
@@ -66,7 +78,11 @@ const Users = () => {
 
   const handleDeleteUser = async (userId: string) => {
     try {
-      await axios.delete(`/api/users/delete/${userId}`);
+
+      const token = localStorage.getItem('token');
+      const headers = { Authorization: `Bearer ${token}` };
+
+      await axios.delete(`http://147.93.121.22:4000/api/users/delete/${userId}`, { headers });
       setUsers(users.filter(user => user.id !== userId));
     } catch (err) {
       setError('Failed to delete user');
